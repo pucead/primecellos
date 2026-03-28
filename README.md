@@ -77,6 +77,20 @@ Para testar o acesso ao sistema, utilize as credenciais abaixo (no MVP, as senha
 
 ---
 
+### 🧪 Roteiro Sugerido para Teste (O fluxo completo)
+
+Olá, professor(a)! Para testar o sistema na prática e ver como ele ajudaria uma assistência técnica no dia a dia, preparamos este roteiro passo a passo:
+
+1. **Faça o Login:** Acesse a tela inicial e utilize um dos usuários de teste (por exemplo, o Gerente com `admin@primecell.com`).
+2. **Cadastre um Cliente:** No menu lateral, clique em **"Clientes"** e depois em "Novo Cliente". Preencha com dados fictícios (nome, CPF, telefone) para simular alguém chegando na loja. Salve o cadastro.
+3. **Abra a Ordem de Serviço:** Vá na aba **"Lista de OS"** e clique em "Nova Ordem de Serviço". Selecione o cliente que você acabou de criar. Preencha os dados do aparelho (marca, modelo) e o defeito relatado. Clique em salvar.
+4. **Acompanhe no Painel:** Acesse o **"Dashboard (Kanban)"**. Você verá um novo cartão representando essa OS na primeira coluna, chamada **"Recebido"**.
+5. **Movimente o Conserto:** Simule o andamento do trabalho do técnico! Clique e segure o cartão da OS, arrastando-o pelas colunas seguintes: **"Em Análise"**, **"Aguardando Aprovação"** e **"Em Reparo"**.
+6. **Atualize o Laudo e Valor:** Dê um clique no cartão da OS para abri-lo no modo de edição. Preencha o campo de **"Laudo Técnico"** com o diagnóstico e informe o **"Valor do Serviço"**. Clique em salvar.
+7. **Finalize a OS:** Para terminar, arraste o cartão até a última coluna, **"Entregue"**, simulando que o cliente buscou o aparelho consertado e pagou pelo serviço. Pronto!
+
+---
+
 ## 📖 Diário de Bordo (Histórico de Atualizações)
 Aqui a gente vai documentar a evolução do projeto, para os professores (e nós mesmos) acompanharmos como a ideia foi crescendo ao longo do tempo.
 
