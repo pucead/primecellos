@@ -1,78 +1,54 @@
-# 📱 Primecell OS - Sistema de Gestão de Ordens de Serviço
+# 📱 Primecell OS - Gerenciador de Ordens de Serviço
 
-Bem-vindo ao repositório do **Primecell OS**! Este projeto foi desenvolvido como um sistema web simples, limpo e funcional para gerenciar os consertos e manutenções de celulares de uma loja (assistência técnica).
+Sabe aquela bagunça de papéis, post-its e planilhas confusas que costuma rolar no balcão de uma assistência técnica de celulares? A ideia desse projeto nasceu justamente para acabar com isso. 
 
----
-
-## 🎯 O que é o projeto?
-A Primecell precisava de uma forma mais organizada de acompanhar os celulares que entram para conserto. Antes, tudo podia se perder em papéis ou planilhas difíceis de ler. 
-
-Com este sistema, a loja consegue:
-1. **Cadastrar Clientes:** Saber de quem é o celular e como entrar em contato.
-2. **Cadastrar Usuários:** Identificar qual funcionário (atendente ou técnico) está responsável por cada etapa.
-3. **Criar Ordens de Serviço (OS):** Registrar exatamente qual é o aparelho, o defeito relatado pelo cliente e o valor do conserto.
-4. **Acompanhar o Conserto Visualmente (Kanban):** Mover o celular por diferentes "colunas" (etapas) como *Recebido, Em Análise, Em Reparo, Finalizado e Entregue*, apenas arrastando e soltando os cartões na tela.
+Desenvolvemos o **Primecell OS** como um sistema web para organizar o dia a dia de uma loja de consertos. O foco principal desde o começo foi: tem que ser muito fácil de usar e direto ao ponto. Nada de dezenas de menus complicados.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
-O projeto foi construído pensando em simplicidade e performance, dividindo a aplicação em duas partes:
+## 💡 O que o sistema faz na prática?
+A gente pensou no caminho que o celular faz desde o momento que o cliente entra na loja até a hora que ele sai feliz com o aparelho consertado. Para isso, o sistema permite:
 
-* **Backend (O "Motor" e o Banco de Dados):**
-  * Desenvolvido em **Node.js** utilizando o micro-framework **Express**.
-  * O banco de dados escolhido foi o **SQLite**, que é perfeito para projetos acadêmicos e MVPs porque salva todos os dados em um único arquivo local (`banco.sqlite`), sem precisar instalar programas pesados de banco de dados.
-
-* **Frontend (A Interface do Usuário):**
-  * Desenvolvido em **React** utilizando a ferramenta **Vite** (que deixa o site muito rápido).
-  * O visual foi feito com **CSS puro**, mantendo o código fácil de ler e sem depender de bibliotecas externas complexas.
-  * O quadro de tarefas (Kanban) utiliza a função nativa de *Drag and Drop* (Arrastar e soltar) do próprio navegador.
+- **Saber quem é quem:** Cadastrar os clientes (donos dos aparelhos) e a própria equipe da loja (os técnicos e atendentes).
+- **Abrir a Ordem de Serviço (OS):** Anotar a marca, o modelo, qual é o defeito que o cliente relatou e, mais tarde, o valor do conserto e o laudo técnico.
+- **O Quadro Visual (O coração do sistema):** Em vez de uma lista chata de texto, criamos um quadro interativo (estilo Kanban). Os celulares viram "cartões" na tela. Se o celular do João estava na coluna de "Em Análise" e o técnico terminou de avaliar, é só clicar no cartão com o mouse, segurar e arrastar para a coluna "Aguardando Aprovação". Bem intuitivo!
 
 ---
 
-## 🚀 Como rodar o projeto no seu computador
+## 🛠️ Como construímos tudo isso? (Nossa "Stack" Tecnológica)
+Como este é um projeto acadêmico, nós precisávamos de uma base que fosse moderna, mas ao mesmo tempo fácil de rodar na hora de apresentar para os professores, sem depender de servidores caros ou configurações complexas.
 
-Você precisará abrir **dois terminais** (telas de comando), um para ligar o banco de dados/servidor e outro para ligar o site.
-
-### Passo 1: Ligando o Backend
-1. Abra um terminal e entre na pasta do backend:
-   ```bash
-   cd backend
-   ```
-2. Instale as dependências necessárias (só precisa fazer na primeira vez):
-   ```bash
-   npm install
-   ```
-3. Inicie o servidor:
-   ```bash
-   node server.js
-   ```
-   *(Você verá a mensagem: "Servidor rodando na porta 3000")*
-
-### Passo 2: Ligando o Frontend
-1. Abra um **novo** terminal e entre na pasta do frontend:
-   ```bash
-   cd frontend
-   ```
-2. Instale as dependências visuais (só precisa fazer na primeira vez):
-   ```bash
-   npm install
-   ```
-3. Inicie o site:
-   ```bash
-   npm run dev
-   ```
-   *(O terminal mostrará um link, geralmente `http://localhost:5173`. Clique nele para abrir o sistema no navegador!)*
+1. **A Interface (Frontend):** Usamos o **React** (com a ferramenta Vite, que deixa o carregamento super rápido). Todo o visual e as cores foram feitos por nós mesmos escrevendo **CSS puro**. Isso ajuda muito a entender como cada pedacinho da tela funciona por debaixo dos panos.
+2. **O Motor (Backend):** Toda a lógica e a comunicação da tela com os dados foi feita usando **Node.js** com a biblioteca **Express**.
+3. **O Armazém de Dados (Banco de Dados):** Aqui foi a nossa escolha mais estratégica. Ao invés de usar bancos de dados pesados, optamos pelo **SQLite**. Ele salva todas as informações das ordens de serviço em um único arquivo de texto dentro da nossa própria pasta (`banco.sqlite`). É só dar o play no código que o banco já está lá, funcionando.
 
 ---
 
-## 📖 Histórico de Atualizações (Changelog)
-A partir de agora, manteremos aqui o registro de todas as ideias e novas funcionalidades implementadas no sistema.
+## 🚀 Como testar no seu computador (Passo a Passo)
 
-* **28/03/2026 - Versão Inicial (v1.0)**
-  * Criação do Banco de Dados SQLite (Tabelas: Cliente, Usuário, Ordem de Serviço).
-  * Construção da API REST no Backend (Node.js/Express) com rotas para criar, ler, atualizar e deletar dados.
-  * Criação das telas de listagem e formulários de cadastro.
-  * Implementação da tela principal em formato Kanban.
-  * Adição da funcionalidade de Arrastar e Soltar (Drag and Drop) para mudar o status da OS.
-  * Melhoria no Kanban: Nome do cliente sendo exibido no cartão e possibilidade de clicar no cartão inteiro para ver detalhes.
-  * Configuração do repositório Git com `.gitignore` higienizado para entregas acadêmicas.
+Para ver o sistema rodando, você vai precisar abrir dois terminais (aquelas telas pretas de comando), porque o "Motor" e a "Interface" rodam separados.
+
+**Passo 1: Ligando o Motor (Backend)**
+1. Abre o terminal, entra na pasta do backend digitando: `cd backend`
+2. Na primeira vez, instala as coisas que o projeto precisa com: `npm install`
+3. Liga a chave do servidor com: `node server.js`
+*(Se aparecer "Servidor rodando na porta 3000", deu tudo certo!)*
+
+**Passo 2: Ligando a Interface (Frontend)**
+1. Abre um **novo** terminal (deixa o outro lá rodando quietinho) e entra na pasta: `cd frontend`
+2. Instala as dependências visuais digitando: `npm install`
+3. Roda o comando mágico: `npm run dev`
+*(Ele vai te mostrar um link na tela, geralmente `http://localhost:5173`. É só clicar e usar o sistema no seu navegador!)*
+
+---
+
+## 📖 Diário de Bordo (Histórico de Atualizações)
+Aqui a gente vai documentar a evolução do projeto, para os professores (e nós mesmos) acompanharmos como a ideia foi crescendo ao longo do tempo.
+
+* **28/03/2026 - O pontapé inicial (Versão 1.0)**
+  * Criamos a estrutura do banco de dados (SQLite) para guardar clientes, usuários e as ordens de serviço.
+  * Subimos a API no Node.js que faz o meio de campo (cadastra, lista, atualiza e apaga dados).
+  * Desenhamos as telas de formulários no React para dar entrada nos consertos.
+  * Entregamos a funcionalidade mais legal: o painel visual (Kanban) onde dá para arrastar e soltar os cartões de conserto pra trocar o status deles.
+  * Demos um tapa no visual dos cartões pra mostrar o nome do cliente direto de cara e deixamos o cartão inteiro clicável pra facilitar a navegação.
+  * Deixamos o repositório do Git organizado e pronto para apresentações acadêmicas.
