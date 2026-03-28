@@ -51,6 +51,18 @@ async function abrirBanco() {
     )
   `);
 
+  // Popula os usuários de teste automaticamente caso o banco esteja vazio
+  const qtdUsuarios = await db.get('SELECT COUNT(*) as count FROM Usuario');
+  if (qtdUsuarios.count === 0) {
+    await db.run(
+      "INSERT INTO Usuario (nome, email, senha_hash, perfil) VALUES ('Gerente Prime', 'admin@primecell.com', 'admin', 'GERENTE')"
+    );
+    await db.run(
+      "INSERT INTO Usuario (nome, email, senha_hash, perfil) VALUES ('Atendente', 'atendente@primecell.com', '123456', 'ATENDENTE')"
+    );
+    console.log('✅ Usuários de teste criados com sucesso!');
+  }
+
   return db;
 }
 

@@ -42,6 +42,19 @@ Para ver o sistema rodando, você vai precisar abrir dois terminais (aquelas tel
 
 ---
 
+### 🔑 Usuários para Teste
+Para testar o acesso ao sistema, utilize as credenciais abaixo (no MVP, as senhas não possuem criptografia complexa para facilitar a validação):
+
+- **Gerente**
+  - **E-mail:** `admin@primecell.com`
+  - **Senha:** `admin`
+
+- **Atendente**
+  - **E-mail:** `atendente@primecell.com`
+  - **Senha:** `123456`
+
+---
+
 ## 📖 Diário de Bordo (Histórico de Atualizações)
 Aqui a gente vai documentar a evolução do projeto, para os professores (e nós mesmos) acompanharmos como a ideia foi crescendo ao longo do tempo.
 
