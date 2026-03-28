@@ -16,6 +16,28 @@ abrirBanco().then(banco => {
 });
 
 // ==========================================
+// ROTAS DE AUTENTICACAO
+// ==========================================
+
+app.post('/login', async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    
+    // Procura o usuário pelo email e senha (como é MVP, comparamos direto com senha_hash que salva em texto plano)
+    const usuario = await db.get('SELECT id, nome, email, perfil FROM Usuario WHERE email = ? AND senha_hash = ?', [email, senha]);
+    
+    if (usuario) {
+      // Retorna sucesso e os dados do usuário para o frontend salvar na sessão (localStorage)
+      res.json({ sucesso: true, usuario });
+    } else {
+      res.status(401).json({ erro: 'Email ou senha inválidos' });
+    }
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro ao realizar login', detalhes: erro.message });
+  }
+});
+
+// ==========================================
 // ROTAS PARA USUARIO
 // ==========================================
 

@@ -45,6 +45,11 @@ Para ver o sistema rodando, você vai precisar abrir dois terminais (aquelas tel
 ## 📖 Diário de Bordo (Histórico de Atualizações)
 Aqui a gente vai documentar a evolução do projeto, para os professores (e nós mesmos) acompanharmos como a ideia foi crescendo ao longo do tempo.
 
+* **28/03/2026 - Protegendo a casa (Tela de Login)**
+  * Criamos a tela de autenticação do sistema. Agora ninguém acessa direto!
+  * Adicionamos a rota `/login` no backend que verifica se o e-mail e a senha batem com os cadastros do banco.
+  * O sistema agora "lembra" de quem logou (salvando no navegador) e exibe o nome do usuário no menu principal com a opção de Sair.
+
 * **28/03/2026 - O pontapé inicial (Versão 1.0)**
   * Criamos a estrutura do banco de dados (SQLite) para guardar clientes, usuários e as ordens de serviço.
   * Subimos a API no Node.js que faz o meio de campo (cadastra, lista, atualiza e apaga dados).
