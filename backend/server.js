@@ -167,6 +167,27 @@ app.delete('/clientes/:id', async (req, res) => {
 // ROTAS PARA ORDEM DE SERVICO (OS)
 // ==========================================
 
+// Dashboard - Estatisticas
+app.get('/ordens/estatisticas', async (req, res) => {
+  try {
+    const totalOS = await db.get('SELECT COUNT(*) as count FROM OrdemServico');
+    const osEmAndamento = await db.get("SELECT COUNT(*) as count FROM OrdemServico WHERE status NOT IN ('ENTREGUE', 'CANCELADO')");
+    const faturamento = await db.get("SELECT SUM(valor_servico) as total FROM OrdemServico WHERE status = 'ENTREGUE'");
+    
+    // Status para os gráficos
+    const osPorStatus = await db.all("SELECT status, COUNT(*) as count FROM OrdemServico GROUP BY status");
+
+    res.json({
+      total: totalOS.count || 0,
+      andamento: osEmAndamento.count || 0,
+      faturamento: faturamento.total || 0,
+      porStatus: osPorStatus
+    });
+  } catch (erro) {
+    res.status(500).json({ erro: 'Erro ao buscar estatísticas', detalhes: erro.message });
+  }
+});
+
 // Criar OS (C)
 app.post('/ordens', async (req, res) => {
   try {

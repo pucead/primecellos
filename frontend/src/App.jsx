@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import './App.css';
 
+import Dashboard from './paginas/Dashboard';
 import Kanban from './paginas/Kanban';
 import ListaOS from './paginas/ListaOS';
 import FormularioOS from './paginas/FormularioOS';
@@ -18,7 +19,8 @@ function Menu({ usuarioLogado, aoSair }) {
         <h1>Primecell OS</h1>
       </div>
       <ul className="menu-links">
-        <li><Link to="/">Dashboard (Kanban)</Link></li>
+        <li><Link to="/">Dashboard</Link></li>
+        <li><Link to="/kanban">Kanban</Link></li>
         <li><Link to="/lista-os">Lista de OS</Link></li>
         <li><Link to="/clientes">Clientes</Link></li>
         <li><Link to="/usuarios">Usuários</Link></li>
@@ -65,8 +67,9 @@ function App() {
           <Menu usuarioLogado={usuarioLogado} aoSair={handleSair} />
           <main className="conteudo-principal">
             <Routes>
-              {/* O Kanban é a tela inicial agora */}
-              <Route path="/" element={<RotaProtegida usuarioLogado={usuarioLogado}><Kanban /></RotaProtegida>} />
+              {/* O Dashboard agora é a tela inicial / */}
+              <Route path="/" element={<RotaProtegida usuarioLogado={usuarioLogado}><Dashboard /></RotaProtegida>} />
+              <Route path="/kanban" element={<RotaProtegida usuarioLogado={usuarioLogado}><Kanban /></RotaProtegida>} />
               
               <Route path="/lista-os" element={<RotaProtegida usuarioLogado={usuarioLogado}><ListaOS /></RotaProtegida>} />
               <Route path="/os/nova" element={<RotaProtegida usuarioLogado={usuarioLogado}><FormularioOS /></RotaProtegida>} />
