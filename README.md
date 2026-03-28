@@ -7,6 +7,7 @@ Este projeto propõe uma solução web para o gerenciamento de processos em assi
 ## 💡 Principais Funcionalidades
 O sistema foi desenhado para acompanhar todo o ciclo de vida de um conserto:
 
+- **Dashboard Gerencial:** Tela inicial contendo indicadores rápidos como Total de OS, métricas de OS em andamento, métricas por status e somatório de faturamento (OS Entregues).
 - **Gestão de Cadastros:** Controle de clientes (proprietários dos aparelhos) e usuários do sistema (técnicos e atendentes).
 - **Abertura de Ordem de Serviço (OS):** Registro detalhado do aparelho, incluindo marca, modelo e defeito relatado, com a posterior adição de laudo técnico e valores.
 - **Quadro Kanban Interativo:** Acompanhamento visual das ordens de serviço. Os consertos são representados por cartões que podem ser movimentados (via *Drag and Drop*) entre as etapas do processo: *Recebido, Em Análise, Aguardando Aprovação, Em Reparo, Finalizado e Entregue*.
@@ -84,6 +85,9 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
 
 ## 📖 Histórico de Atualizações (Changelog)
 
+- **28/03/2026 - Evolução de Interface e Dashboard**
+  - Desmembramento da aba Dashboard/Kanban. Agora possuem telas e rotas isoladas.
+  - Implementação do Dashboard Gerencial consumindo estatísticas reais da base de dados (Faturamento e Status).
 - **28/03/2026 - Adequação Acadêmica e Processos**
   - Refinamento de linguagem da documentação para padrão técnico e acadêmico.
   - Inclusão de roteiro de validação de fluxo sistêmico para a banca avaliadora.
