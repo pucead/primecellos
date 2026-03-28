@@ -26,19 +26,41 @@ Como este é um projeto acadêmico, nós precisávamos de uma base que fosse mod
 
 ## 🚀 Como testar no seu computador (Passo a Passo)
 
-Para ver o sistema rodando, você vai precisar abrir dois terminais (aquelas telas pretas de comando), porque o "Motor" e a "Interface" rodam separados.
+Olá, professor(a)! Para avaliar o nosso projeto rodando na sua máquina, preparamos este guia rápido e direto. O nosso sistema é dividido em duas partes principais que precisam rodar ao mesmo tempo: o "Motor" (Backend) e a "Interface" (Frontend). 
 
-**Passo 1: Ligando o Motor (Backend)**
-1. Abre o terminal, entra na pasta do backend digitando: `cd backend`
-2. Na primeira vez, instala as coisas que o projeto precisa com: `npm install`
-3. Liga a chave do servidor com: `node server.js`
-*(Se aparecer "Servidor rodando na porta 3000", deu tudo certo!)*
+**⚠️ Importante antes de começar:** 
+Você vai precisar ter o **Node.js** instalado no seu computador. Ele é o ambiente que permite que o nosso código JavaScript funcione fora do navegador, e é essencial para rodarmos os comandos `npm install` que baixarão as ferramentas que utilizamos. Se ainda não tiver, é só baixar a versão recomendada (LTS) no site oficial: [nodejs.org](https://nodejs.org/).
 
-**Passo 2: Ligando a Interface (Frontend)**
-1. Abre um **novo** terminal (deixa o outro lá rodando quietinho) e entra na pasta: `cd frontend`
-2. Instala as dependências visuais digitando: `npm install`
-3. Roda o comando mágico: `npm run dev`
-*(Ele vai te mostrar um link na tela, geralmente `http://localhost:5173`. É só clicar e usar o sistema no seu navegador!)*
+---
+
+### Abrindo o Terminal
+
+Primeiro, você precisará abrir o terminal (aquela tela de linha de comando) na pasta principal do nosso projeto:
+- **Se você usa Windows:** Abra a pasta do projeto no Explorador de Arquivos, clique na barra de endereços no topo, digite `cmd` ou `powershell` e aperte Enter. 
+- **Se você usa Mac ou Linux:** Clique com o botão direito dentro da pasta do projeto e selecione "Abrir no Terminal" (Open in Terminal).
+
+> 💡 **Dica rápida sobre o comando `cd`:** Nos passos abaixo, vamos usar o comando `cd` (que significa *Change Directory*, ou "Mudar de Diretório"). Ele serve simplesmente para dizer ao terminal para entrar dentro de uma pasta específica.
+
+---
+
+### Passo 1: Ligando o Motor (Backend)
+No terminal que você acabou de abrir, siga estes passos:
+
+1. Entre na pasta do backend digitando: `cd backend`
+2. Instale as ferramentas e bibliotecas que o nosso projeto precisa rodando: `npm install` (isso pode levar alguns segundinhos).
+3. Por fim, ligue o servidor digitando: `node server.js`
+*(Se aparecer "Servidor rodando na porta 3000", deu tudo certo! O banco de dados já está configurado para rodar junto com ele).*
+
+---
+
+### Passo 2: Ligando a Interface (Frontend)
+Agora vamos ligar a tela do sistema. **Deixe o terminal anterior aberto rodando quietinho**, e abra um **novo terminal** na pasta principal do projeto (seguindo as mesmas instruções de cima).
+
+1. Neste novo terminal, entre na pasta da interface digitando: `cd frontend`
+2. Novamente, instale as dependências visuais com o comando: `npm install`
+3. Para iniciar a tela, rode: `npm run dev`
+
+*(Ele vai te mostrar um link na tela, que geralmente é `http://localhost:5173`. É só segurar o 'Ctrl' (ou 'Cmd' no Mac) e clicar no link, ou copiar e colar no seu navegador preferido!)*
 
 ---
 
