@@ -1,0 +1,14 @@
+# Blueprint para https://render.com — Web Service único (API + frontend estático)
+# Conecte o repositório e use "Apply render.yaml" ou crie o serviço manualmente com os mesmos comandos.
+
+services:
+  - type: web
+    name: primecell-os
+    runtime: node
+    plan: free
+    # sqlite3: evitar binário pré-compilado incompatível (GLIBC) — recompilar no ambiente do Render
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && cd backend && npm rebuild sqlite3
+    startCommand: cd backend && NODE_ENV=production node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production

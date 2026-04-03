@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const abrirBanco = require('./database.js');
@@ -5,6 +7,8 @@ const abrirBanco = require('./database.js');
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const api = express.Router();
 
 // Inicia o banco de dados
 let db;
@@ -19,7 +23,7 @@ abrirBanco().then(banco => {
 // ROTAS DE AUTENTICACAO
 // ==========================================
 
-app.post('/login', async (req, res) => {
+api.post('/login', async (req, res) => {
   try {
     const { email, senha } = req.body;
     
@@ -42,7 +46,7 @@ app.post('/login', async (req, res) => {
 // ==========================================
 
 // Criar Usuario (C)
-app.post('/usuarios', async (req, res) => {
+api.post('/usuarios', async (req, res) => {
   try {
     const { nome, email, senha_hash, perfil } = req.body;
     const resultado = await db.run(
@@ -56,7 +60,7 @@ app.post('/usuarios', async (req, res) => {
 });
 
 // Listar Usuarios (R)
-app.get('/usuarios', async (req, res) => {
+api.get('/usuarios', async (req, res) => {
   try {
     const usuarios = await db.all('SELECT * FROM Usuario');
     res.json(usuarios);
@@ -66,7 +70,7 @@ app.get('/usuarios', async (req, res) => {
 });
 
 // Buscar Usuario por ID (R)
-app.get('/usuarios/:id', async (req, res) => {
+api.get('/usuarios/:id', async (req, res) => {
   try {
     const usuario = await db.get('SELECT * FROM Usuario WHERE id = ?', [req.params.id]);
     if (usuario) res.json(usuario);
@@ -77,7 +81,7 @@ app.get('/usuarios/:id', async (req, res) => {
 });
 
 // Atualizar Usuario (U)
-app.put('/usuarios/:id', async (req, res) => {
+api.put('/usuarios/:id', async (req, res) => {
   try {
     const { nome, email, senha_hash, perfil } = req.body;
     await db.run(
@@ -91,7 +95,7 @@ app.put('/usuarios/:id', async (req, res) => {
 });
 
 // Deletar Usuario (D)
-app.delete('/usuarios/:id', async (req, res) => {
+api.delete('/usuarios/:id', async (req, res) => {
   try {
     await db.run('DELETE FROM Usuario WHERE id = ?', [req.params.id]);
     res.json({ mensagem: 'Usuário deletado com sucesso!' });
@@ -105,7 +109,7 @@ app.delete('/usuarios/:id', async (req, res) => {
 // ==========================================
 
 // Criar Cliente (C)
-app.post('/clientes', async (req, res) => {
+api.post('/clientes', async (req, res) => {
   try {
     const { nome, cpf, telefone } = req.body;
     const resultado = await db.run(
@@ -119,7 +123,7 @@ app.post('/clientes', async (req, res) => {
 });
 
 // Listar Clientes (R)
-app.get('/clientes', async (req, res) => {
+api.get('/clientes', async (req, res) => {
   try {
     const clientes = await db.all('SELECT * FROM Cliente');
     res.json(clientes);
@@ -129,7 +133,7 @@ app.get('/clientes', async (req, res) => {
 });
 
 // Buscar Cliente por ID (R)
-app.get('/clientes/:id', async (req, res) => {
+api.get('/clientes/:id', async (req, res) => {
   try {
     const cliente = await db.get('SELECT * FROM Cliente WHERE id = ?', [req.params.id]);
     if (cliente) res.json(cliente);
@@ -140,7 +144,7 @@ app.get('/clientes/:id', async (req, res) => {
 });
 
 // Atualizar Cliente (U)
-app.put('/clientes/:id', async (req, res) => {
+api.put('/clientes/:id', async (req, res) => {
   try {
     const { nome, cpf, telefone } = req.body;
     await db.run(
@@ -154,7 +158,7 @@ app.put('/clientes/:id', async (req, res) => {
 });
 
 // Deletar Cliente (D)
-app.delete('/clientes/:id', async (req, res) => {
+api.delete('/clientes/:id', async (req, res) => {
   try {
     await db.run('DELETE FROM Cliente WHERE id = ?', [req.params.id]);
     res.json({ mensagem: 'Cliente deletado com sucesso!' });
@@ -168,7 +172,7 @@ app.delete('/clientes/:id', async (req, res) => {
 // ==========================================
 
 // Dashboard - Estatisticas
-app.get('/ordens/estatisticas', async (req, res) => {
+api.get('/ordens/estatisticas', async (req, res) => {
   try {
     const totalOS = await db.get('SELECT COUNT(*) as count FROM OrdemServico');
     const osEmAndamento = await db.get("SELECT COUNT(*) as count FROM OrdemServico WHERE status NOT IN ('ENTREGUE', 'CANCELADO')");
@@ -189,7 +193,7 @@ app.get('/ordens/estatisticas', async (req, res) => {
 });
 
 // Criar OS (C)
-app.post('/ordens', async (req, res) => {
+api.post('/ordens', async (req, res) => {
   try {
     const { cliente_id, usuario_id, aparelho, marca, modelo, descricao_problema } = req.body;
     
@@ -210,7 +214,7 @@ app.post('/ordens', async (req, res) => {
 });
 
 // Listar OS (R)
-app.get('/ordens', async (req, res) => {
+api.get('/ordens', async (req, res) => {
   try {
     const ordens = await db.all(`
       SELECT o.*, c.nome as cliente_nome, c.cpf as cliente_cpf 
@@ -234,7 +238,7 @@ app.get('/ordens', async (req, res) => {
 });
 
 // Buscar OS por ID (R)
-app.get('/ordens/:id', async (req, res) => {
+api.get('/ordens/:id', async (req, res) => {
   try {
     const ordem = await db.get('SELECT * FROM OrdemServico WHERE id = ?', [req.params.id]);
     if (ordem) res.json(ordem);
@@ -245,7 +249,7 @@ app.get('/ordens/:id', async (req, res) => {
 });
 
 // Atualizar OS (U)
-app.put('/ordens/:id', async (req, res) => {
+api.put('/ordens/:id', async (req, res) => {
   try {
     const { aparelho, marca, modelo, descricao_problema, laudo_tecnico, valor_servico, status, data_saida } = req.body;
     await db.run(
@@ -262,7 +266,7 @@ app.put('/ordens/:id', async (req, res) => {
 });
 
 // Atualizar apenas o status da OS (PATCH) para o Kanban
-app.patch('/ordens/:id/status', async (req, res) => {
+api.patch('/ordens/:id/status', async (req, res) => {
   try {
     const { status } = req.body;
     if (!status) {
@@ -280,7 +284,7 @@ app.patch('/ordens/:id/status', async (req, res) => {
 });
 
 // Deletar OS (D)
-app.delete('/ordens/:id', async (req, res) => {
+api.delete('/ordens/:id', async (req, res) => {
   try {
     await db.run('DELETE FROM OrdemServico WHERE id = ?', [req.params.id]);
     res.json({ mensagem: 'Ordem de serviço deletada com sucesso!' });
@@ -289,7 +293,27 @@ app.delete('/ordens/:id', async (req, res) => {
   }
 });
 
-// Inicia o servidor
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+api.use((req, res) => {
+  res.status(404).json({ erro: 'Endpoint não encontrado' });
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).send('ok');
+});
+
+app.use('/api', api);
+
+const distDir = path.join(__dirname, '../frontend/dist');
+if (process.env.NODE_ENV === 'production' && fs.existsSync(distDir)) {
+  app.use(express.static(distDir));
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(distDir, 'index.html'), (err) => next(err));
+  });
+}
+
+// Inicia o servidor (PORT é definida em hospedagens como Render/Railway)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

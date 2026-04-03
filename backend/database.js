@@ -1,10 +1,14 @@
+const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const { open } = require('sqlite');
+
+// Caminho estável independente do diretório de trabalho (deploy / PM2)
+const DB_PATH = process.env.SQLITE_PATH || path.join(__dirname, 'banco.sqlite');
 
 // Função para abrir o banco de dados e criar tabelas se não existirem
 async function abrirBanco() {
   const db = await open({
-    filename: './banco.sqlite',
+    filename: DB_PATH,
     driver: sqlite3.Database
   });
 

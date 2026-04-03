@@ -61,6 +61,24 @@ Mantenha o terminal do Backend em execução. Abra um **novo terminal** na pasta
 
 *(Um link de acesso será gerado, tipicamente `http://localhost:5173`. Acesse-o através do seu navegador web).*
 
+> Em desenvolvimento, o Vite encaminha as chamadas para `/api/...` ao backend em `http://localhost:3000`. Para testar a API diretamente no Node (sem o Vite), use o prefixo `/api` — por exemplo: `http://localhost:3000/api/usuarios`.
+
+---
+
+## 🌐 Publicar na internet (Render)
+
+O repositório inclui o arquivo [`render.yaml`](render.yaml) para um **único Web Service**: o build gera o `frontend/dist` e o Express serve a API e os arquivos estáticos no mesmo domínio (HTTPS).
+
+1. Acesse [render.com](https://render.com), conecte o GitHub e escolha **New → Blueprint** apontando para este repositório (o Render detecta o `render.yaml`), ou crie um **Web Service** manual com os mesmos comandos do blueprint.
+2. **Build Command:** `npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && cd backend && npm rebuild sqlite3`  
+   *(O `npm rebuild sqlite3` recompila o driver nativo no Linux do Render e evita o erro `GLIBC_2.38 not found` causado por binário pré-compilado errado.)*
+3. **Start Command:** `cd backend && NODE_ENV=production node server.js`
+4. Após o deploy, use a URL pública. Verificação rápida: `GET /health` deve responder `ok`.
+
+**Nota:** em planos com disco efêmero, o SQLite pode ser recriado a cada reinício (dados somente para demonstração). Variável opcional `SQLITE_PATH` define onde salvar o arquivo do banco.
+
+Se no futuro a API ficar em **outro domínio**, faça o build do frontend com `VITE_API_URL=https://sua-api.exemplo.com` (as rotas continuam com prefixo `/api` nesse host).
+
 ---
 
 ### 🔑 Credenciais de Acesso (Ambiente de Teste)
@@ -96,6 +114,11 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
 
 - **03/04/2026 - Documentação oficial**
   - Reunião da equipe para elaboração da documentação oficial da aplicação.
+- **03/04/2026 - Hospedagem e API**
+  - Rotas da API sob o prefixo `/api` (compatível com React Router no mesmo host).
+  - Modo produção: Express serve o `frontend/dist` e aceita `PORT` do provedor; checagem `/health`.
+  - Desenvolvimento: proxy do Vite para o backend; SQLite com caminho estável (`SQLITE_PATH` opcional).
+  - Blueprint [`render.yaml`](render.yaml) para deploy no Render.
 - **28/03/2026 - Evolução de Interface e Dashboard**
   - Desmembramento da aba Dashboard/Kanban. Agora possuem telas e rotas isoladas.
   - Implementação do Dashboard Gerencial consumindo estatísticas reais da base de dados (Faturamento e Status).
