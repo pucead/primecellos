@@ -6,8 +6,7 @@ services:
     name: primecell-os
     runtime: node
     plan: free
-    # sqlite3: evitar binário pré-compilado incompatível (GLIBC) — recompilar no ambiente do Render
-    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && cd backend && npm rebuild sqlite3
+    buildCommand: npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend
     startCommand: cd backend && NODE_ENV=production node server.js
     envVars:
       - key: NODE_ENV

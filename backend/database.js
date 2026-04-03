@@ -1,18 +1,43 @@
 const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
-const { open } = require('sqlite');
+const { DatabaseSync } = require('node:sqlite');
 
-// Caminho estável independente do diretório de trabalho (deploy / PM2)
 const DB_PATH = process.env.SQLITE_PATH || path.join(__dirname, 'banco.sqlite');
 
-// Função para abrir o banco de dados e criar tabelas se não existirem
-async function abrirBanco() {
-  const db = await open({
-    filename: DB_PATH,
-    driver: sqlite3.Database
-  });
+/**
+ * Adaptador com a mesma forma de uso do pacote `sqlite` (get/all/run/exec em Promise),
+ * usando SQLite embutido do Node 22 — sem addon nativo npm (compatível com Render).
+ */
+function criarDbAssincrono(syncDb) {
+  const bindParams = (params) => (Array.isArray(params) ? params : []);
 
-  // Tabela Usuario
+  return {
+    exec: async (sql) => {
+      syncDb.exec(sql);
+    },
+    get: async (sql, params = []) => {
+      const stmt = syncDb.prepare(sql);
+      return stmt.get(...bindParams(params));
+    },
+    all: async (sql, params = []) => {
+      const stmt = syncDb.prepare(sql);
+      return stmt.all(...bindParams(params));
+    },
+    run: async (sql, params = []) => {
+      const stmt = syncDb.prepare(sql);
+      const r = stmt.run(...bindParams(params));
+      const lid = r.lastInsertRowid;
+      return {
+        lastID: lid == null ? 0 : Number(lid),
+        changes: Number(r.changes),
+      };
+    },
+  };
+}
+
+async function abrirBanco() {
+  const syncDb = new DatabaseSync(DB_PATH);
+  const db = criarDbAssincrono(syncDb);
+
   await db.exec(`
     CREATE TABLE IF NOT EXISTS Usuario (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,7 +48,6 @@ async function abrirBanco() {
     )
   `);
 
-  // Tabela Cliente
   await db.exec(`
     CREATE TABLE IF NOT EXISTS Cliente (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,7 +58,6 @@ async function abrirBanco() {
     )
   `);
 
-  // Tabela OrdemServico
   await db.exec(`
     CREATE TABLE IF NOT EXISTS OrdemServico (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -55,7 +78,6 @@ async function abrirBanco() {
     )
   `);
 
-  // Popula os usuários de teste automaticamente caso o banco esteja vazio
   const qtdUsuarios = await db.get('SELECT COUNT(*) as count FROM Usuario');
   if (qtdUsuarios.count === 0) {
     await db.run(

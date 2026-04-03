@@ -21,7 +21,7 @@ Sendo um projeto acadêmico, a arquitetura foi planejada para ser moderna, leve 
 
 1. **Frontend (Interface):** Desenvolvido em **React** utilizando a ferramenta **Vite** para otimização de performance. A estilização foi construída com **CSS puro**, garantindo um código legível e sem dependências externas excessivas.
 2. **Backend (API):** Desenvolvido em **Node.js** com o micro-framework **Express**, responsável pelas regras de negócio, rotas da aplicação e comunicação com o banco de dados.
-3. **Banco de Dados:** Optou-se pelo uso do **SQLite**. Por ser um banco de dados embutido, todas as informações são salvas em um arquivo local (`banco.sqlite`), o que elimina a necessidade de configurações de servidores de banco de dados para a equipe de avaliação.
+3. **Banco de Dados:** **SQLite** persistido em arquivo local (`banco.sqlite`), acessado pelo módulo nativo **`node:sqlite`** do Node.js (sem drivers nativos npm), o que simplifica deploy e avaliação local.
 
 ---
 
@@ -30,7 +30,7 @@ Sendo um projeto acadêmico, a arquitetura foi planejada para ser moderna, leve 
 Para executar o sistema em seu computador, é necessário inicializar o Backend e o Frontend em terminais de comando distintos.
 
 **⚠️ Pré-requisito:** 
-Certifique-se de ter o **Node.js** instalado em seu ambiente para a execução do servidor e gerenciamento de pacotes. Caso não possua, o download pode ser feito no site oficial: [nodejs.org](https://nodejs.org/).
+Certifique-se de ter o **Node.js 22.5 ou superior** instalado (necessário para o módulo embutido `node:sqlite` no backend). Download: [nodejs.org](https://nodejs.org/).
 
 ### Preparando o Terminal
 
@@ -70,8 +70,7 @@ Mantenha o terminal do Backend em execução. Abra um **novo terminal** na pasta
 O repositório inclui o arquivo [`render.yaml`](render.yaml) para um **único Web Service**: o build gera o `frontend/dist` e o Express serve a API e os arquivos estáticos no mesmo domínio (HTTPS).
 
 1. Acesse [render.com](https://render.com), conecte o GitHub e escolha **New → Blueprint** apontando para este repositório (o Render detecta o `render.yaml`), ou crie um **Web Service** manual com os mesmos comandos do blueprint.
-2. **Build Command:** `npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && cd backend && npm rebuild sqlite3`  
-   *(O `npm rebuild sqlite3` recompila o driver nativo no Linux do Render e evita o erro `GLIBC_2.38 not found` causado por binário pré-compilado errado.)*
+2. **Build Command:** `npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend`
 3. **Start Command:** `cd backend && NODE_ENV=production node server.js`
 4. Após o deploy, use a URL pública. Verificação rápida: `GET /health` deve responder `ok`.
 
@@ -117,7 +116,7 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
 - **03/04/2026 - Hospedagem e API**
   - Rotas da API sob o prefixo `/api` (compatível com React Router no mesmo host).
   - Modo produção: Express serve o `frontend/dist` e aceita `PORT` do provedor; checagem `/health`.
-  - Desenvolvimento: proxy do Vite para o backend; SQLite com caminho estável (`SQLITE_PATH` opcional).
+  - Desenvolvimento: proxy do Vite para o backend; SQLite via **`node:sqlite`** (Node 22+, sem pacote `sqlite3` — evita incompatibilidade de GLIBC em hospedagens).
   - Blueprint [`render.yaml`](render.yaml) para deploy no Render.
 - **28/03/2026 - Evolução de Interface e Dashboard**
   - Desmembramento da aba Dashboard/Kanban. Agora possuem telas e rotas isoladas.
