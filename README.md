@@ -5,6 +5,7 @@ Este projeto propõe uma solução web para o gerenciamento de processos em assi
 ---
 
 ## 💡 Principais Funcionalidades
+
 O sistema foi desenhado para acompanhar todo o ciclo de vida de um conserto:
 
 - **Dashboard Gerencial:** Tela inicial contendo indicadores rápidos como Total de OS, métricas de OS em andamento, métricas por status e somatório de faturamento (OS Entregues).
@@ -15,6 +16,7 @@ O sistema foi desenhado para acompanhar todo o ciclo de vida de um conserto:
 ---
 
 ## 🛠️ Arquitetura e Tecnologias Utilizadas
+
 Sendo um projeto acadêmico, a arquitetura foi planejada para ser moderna, leve e de fácil execução, sem a necessidade de infraestruturas complexas para a avaliação da banca.
 
 1. **Frontend (Interface):** Desenvolvido em **React** utilizando a ferramenta **Vite** para otimização de performance. A estilização foi construída com **CSS puro**, garantindo um código legível e sem dependências externas excessivas.
@@ -31,21 +33,28 @@ Para executar o sistema em seu computador, é necessário inicializar o Backend 
 Certifique-se de ter o **Node.js** instalado em seu ambiente para a execução do servidor e gerenciamento de pacotes. Caso não possua, o download pode ser feito no site oficial: [nodejs.org](https://nodejs.org/).
 
 ### Preparando o Terminal
+
 Abra o terminal (ou prompt de comando) na pasta raiz do projeto:
+
 - **No Windows:** Navegue até a pasta pelo Explorador de Arquivos, digite `cmd` ou `powershell` na barra de endereços e pressione Enter. 
 - **No Mac ou Linux:** Clique com o botão direito dentro da pasta do projeto e selecione "Abrir no Terminal".
 
 > 💡 **Nota sobre navegação:** Utilize o comando `cd` (Change Directory) nos passos abaixo para acessar os diretórios correspondentes.
 
 ### Passo 1: Inicializando o Backend (API)
+
 No terminal aberto, execute os seguintes comandos:
+
 1. Acesse a pasta correspondente: `cd backend`
 2. Instale as dependências da aplicação: `npm install`
 3. Inicie o servidor: `node server.js`
+
 *(A mensagem "Servidor rodando na porta 3000" indicará o sucesso da operação. O banco de dados SQLite é inicializado automaticamente neste processo).*
 
 ### Passo 2: Inicializando o Frontend (Interface)
+
 Mantenha o terminal do Backend em execução. Abra um **novo terminal** na pasta raiz do projeto e execute:
+
 1. Acesse a pasta correspondente: `cd frontend`
 2. Instale as dependências: `npm install`
 3. Inicie a aplicação local: `npm run dev`
@@ -55,12 +64,12 @@ Mantenha o terminal do Backend em execução. Abra um **novo terminal** na pasta
 ---
 
 ### 🔑 Credenciais de Acesso (Ambiente de Teste)
+
 Para fins de avaliação acadêmica e validação do MVP, o banco de dados é inicializado automaticamente com os seguintes perfis:
 
 - **Gerente**
   - **E-mail:** `admin@primecell.com`
   - **Senha:** `admin`
-
 - **Atendente**
   - **E-mail:** `atendente@primecell.com`
   - **Senha:** `123456`
@@ -85,6 +94,8 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
 
 ## 📖 Histórico de Atualizações (Changelog)
 
+- **03/04/2026 - Documentação oficial**
+  - Reunião da equipe para elaboração da documentação oficial da aplicação.
 - **28/03/2026 - Evolução de Interface e Dashboard**
   - Desmembramento da aba Dashboard/Kanban. Agora possuem telas e rotas isoladas.
   - Implementação do Dashboard Gerencial consumindo estatísticas reais da base de dados (Faturamento e Status).
@@ -99,3 +110,4 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
   - Construção da API RESTful no ecossistema Node.js com Express.
   - Implementação da interface web (SPA) em React com rotinas de CRUD.
   - Desenvolvimento do painel Kanban interativo integrado aos endpoints de status.
+
