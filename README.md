@@ -109,8 +109,24 @@ Sugerimos o seguinte roteiro para a avaliação funcional do ciclo de vida da ap
 
 ---
 
+## 👥 Equipe e responsabilidades *(06/04/2026)*
+
+Registro da divisão de **funções no produto** e **pessoas responsáveis** acordada na documentação do projeto.
+
+| Pessoa | Papel | Funcionalidades e âmbito de responsabilidade |
+|--------|--------|-----------------------------------------------|
+| **Maria** | Tech Leader | Direção técnica da equipe, priorização de entregas, alinhamento de arquitetura (frontend, backend e integração) e qualidade da solução como um todo. |
+| **Ivan** | UX | Experiência do usuário: fluxos de telas, usabilidade em balcão, consistência de navegação e critérios de boa interação nas jornadas (login, cadastros, OS, Kanban, dashboard). |
+| **Samuel** | Frontend | Implementação e manutenção da interface (React/Vite): componentes, rotas, consumo da API, formulários, listas, Kanban e dashboard no cliente. |
+| **Gabriel** | Backend | API (Node/Express), modelo de dados, persistência SQLite, endpoints, regras de negócio no servidor e segurança básica de acesso (ex.: autenticação no MVP). |
+| **Airton** | Fullstack | Atuação ponta a ponta: features que envolvem front e back, integração entre camadas, ajustes transversais e apoio a deploy/ambiente quando necessário. |
+
+---
+
 ## 📖 Histórico de Atualizações (Changelog)
 
+- **06/04/2026 - Equipe e responsabilidades**
+  - Documentação formal dos papéis (Tech Leader, UX, Frontend, Backend, Fullstack) e do escopo de atuação de cada integrante no Primecell OS.
 - **03/04/2026 - Documentação oficial**
   - Reunião da equipe para elaboração da documentação oficial da aplicação.
 - **03/04/2026 - Hospedagem e API**
